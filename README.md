@@ -1,4 +1,4 @@
-# ESP32 Web Flasher
+# ESP32 Web Flasher 2026
 
 A web-based tool for flashing firmware to ESP32 microcontrollers directly from your browser using the Web Serial API.
 
