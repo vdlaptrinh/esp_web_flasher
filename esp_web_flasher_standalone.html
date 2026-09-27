@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>TienHuyIoT — ESP32 Web Flasher</title>
+    <title>VdLapTrinh — ESP32 Web Flasher</title>
 
     <!-- Google Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1458,80 +1458,90 @@ function parseFlashAddress(addressStr) {
 const EMBEDDED_FIRMWARE_DATABASE = {
   "firmwareList": [
     {
-      "id": "esp32_deep_sleep",
-      "name": "ESP32 Deep Sleep Demo",
-      "filename": "deep_sleep_demo.bin",
-      "flashAddress": "0x10000",
-      "path": "local://samples/deep_sleep_demo.bin",
-      "description": "Demo chế độ deep sleep để tiết kiệm pin - thức dậy bằng timer hoặc GPIO",
-      "size": "198KB",
-      "version": "1.3.1",
-      "category": "Power Management",
-      "note": "Phù hợp cho ESP32 module và board phát triển",
-      "hardware_version": "ESP32",
-      "hardware_info": {
-        "chip": "ESP32",
-        "flash_size": "4MB",
-        "compatible_boards": ["ESP32 DevKit", "ESP32 WROOM", "ESP32 NodeMCU"],
-        "minimum_requirements": {
-          "flash": "1MB",
-          "ram": "320KB"
-        },
-        "gpio_requirements": ["GPIO2 for LED", "GPIO0 for wake-up button"],
-        "power_requirements": "3.3V, low power design"
-      }
-    },
-    {
-      "id": "xiaozhi_music_v2.0.4",
-      "name": "Xiaozhi Music V2.0.4",
-      "filename": "esp32s3_xiaozhi_music_v2.0.4.bin",
+      "id": "bread-compact-wifi-128x64_xiaozhi_ai",
+      "name": "bread-compact-wifi 128x64 — AI Xiaozhi VN",
+      "filename": "bread-compact-wifi-128x64_xiaozhi_ai.bin",
       "flashAddress": "0x00000",
-      "path": "https://cdn.jsdelivr.net/gh/TienHuyIoT/esp_web_flasher@master/samples/esp32s3_xiaozhi_music_v2.0.4.bin",
-      "description": "Firmware board TÍM OLED AI Xiaozhi Music Việt Nam",
-      "size": "8,743KB",
-      "version": "2.0.4",
+      "path": "local://samples/bread-compact-wifi-128x64_xiaozhi_ai.bin",
+      "description": "Firmware AI Xiaozhi tiếng Việt cho board bread-compact-wifi (màn hình OLED 128x64), build từ Xiaozhi_AI_VN; kèm 22 MCP tool (cảm biến DHT11, đèn LED/lamp, tin tức, nhạc, radio)",
+      "size": "8,863KB",
+      "version": "2026.09.14",
       "category": "AI Xiaozhi",
-      "note": "Chỉ dành cho ESP32-S3 module",
+      "note": "Chỉ dành cho ESP32-S3 module, nạp ở địa chỉ 0x00000 (merged binary)",
       "hardware_version": "ESP32-S3",
       "hardware_info": {
         "chip": "ESP32-S3",
         "flash_size": "16MB",
-        "compatible_boards": ["bread-compact-wifi"],
+        "compatible_boards": ["bread-compact-wifi-128x64", "bread-compact-wifi"],
         "minimum_requirements": {
-          "flash": "8MB",
+          "flash": "16MB",
           "ram": "512KB",
-          "psram": "2MB"
+          "psram": "8MB"
         },
         "gpio_requirements": [
           "I2S for audio output",
-          "I2C for OLED display",
+          "I2C for OLED display 128x64",
+          "GPIO12 - DHT11 sensor",
+          "GPIO10 - LED xanh, GPIO11 - LED đỏ",
           "GPIO for touch buttons",
           "UART for debugging"
         ],
         "power_requirements": "5V via USB",
         "special_features": [
           "Built-in OLED display (128x64)",
-          "Audio codec support"
+          "22 MCP tool: cảm biến DHT11, điều khiển LED/lamp",
+          "Nhạc online + radio, tin tức, ngày này năm xưa",
+          "Wake word: Sophia"
+        ]
+      }
+    },
+    {
+      "id": "freenove-esp32s3-display-2.8-lcd_xiaozhi_ai",
+      "name": "Freenove ESP32-S3 Display 2.8 LCD — AI Xiaozhi VN",
+      "filename": "freenove-esp32s3-display-2.8-lcd_xiaozhi_ai.bin",
+      "flashAddress": "0x00000",
+      "path": "local://samples/freenove-esp32s3-display-2.8-lcd_xiaozhi_ai.bin",
+      "description": "Firmware AI Xiaozhi tiếng Việt cho board Freenove ESP32-S3 Display 2.8 inch LCD, build từ Xiaozhi_AI_VN; nhạc từ thẻ nhớ SD, tin tức VnExpress, luyện nghe tiếng Anh",
+      "size": "9,656KB",
+      "version": "2026.09.27",
+      "category": "AI Xiaozhi",
+      "note": "Chỉ dành cho ESP32-S3 module, nạp ở địa chỉ 0x00000 (merged binary)",
+      "hardware_version": "ESP32-S3",
+      "hardware_info": {
+        "chip": "ESP32-S3",
+        "flash_size": "16MB",
+        "compatible_boards": ["freenove-esp32s3-display-2.8-lcd"],
+        "minimum_requirements": {
+          "flash": "16MB",
+          "ram": "512KB",
+          "psram": "8MB"
+        },
+        "gpio_requirements": [
+          "I2S for audio output",
+          "SPI for LCD 2.8 inch",
+          "SD card SPI cho nhạc offline",
+          "GPIO for touch buttons",
+          "UART for debugging"
+        ],
+        "power_requirements": "5V via USB",
+        "special_features": [
+          "Màn hình LCD 2.8 inch (có backlight, LVGL light/dark theme)",
+          "Phát nhạc trực tiếp từ thẻ nhớ /sdcard/music",
+          "Tin tức VnExpress, lịch sử ngày này năm xưa",
+          "Luyện nghe tiếng Anh có theo dõi tiến trình",
+          "Wake word: Sophia"
         ]
       }
     }
   ],
   "categories": [
-    "AI Xiaozhi",
-    "Basic Examples",
-    "WiFi Examples", 
-    "Web Examples",
-    "IoT Examples",
-    "Bluetooth Examples",
-    "BLE Examples",
-    "Power Management",
-    "Camera Examples"
+    "AI Xiaozhi"
   ],
   "metadata": {
-    "version": "1.0.0",
-    "lastUpdated": "2025-11-08",
-    "description": "ESP32 firmware collection for web flasher",
-    "author": "TienHuyIoT"
+    "version": "2.0.0",
+    "lastUpdated": "2026-09-27",
+    "description": "ESP32-S3 AI Xiaozhi firmware collection cho web flasher",
+    "author": "TienHuyIoT / VDLapTrinh"
   }
 };
 
