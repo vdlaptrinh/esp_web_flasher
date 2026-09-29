@@ -1532,16 +1532,53 @@ const EMBEDDED_FIRMWARE_DATABASE = {
           "Wake word: Sophia"
         ]
       }
+    },
+    {
+      "id": "xiaozhi-bt-bridge-esp32-a2dp",
+      "name": "XiaoZhi → ESP32 A2DP Bluetooth Bridge",
+      "filename": "xiaozhi-bt-bridge-esp32-a2dp.bin",
+      "flashAddress": "0x00000",
+      "path": "local://samples/xiaozhi-bt-bridge-esp32-a2dp.bin",
+      "description": "Cầu nối âm thanh từ board XiaoZhi (ESP32-S3) sang loa Bluetooth qua ESP32 WROOM-32 trung gian (A2DP Source + Bluedroid). Nhận I2S 24kHz mono, resample, encode SBC và stream qua Bluetooth Classic",
+      "size": "832KB",
+      "version": "1.0.0",
+      "category": "Bluetooth Bridge",
+      "note": "Chỉ chạy trên ESP32 WROOM-32 / D0WD (bắt buộc Bluetooth Classic — S3/C3/C6/P4 không làm được A2DP Source). Nạp ở địa chỉ 0x00000 (merged binary)",
+      "hardware_version": "ESP32",
+      "hardware_info": {
+        "chip": "ESP32",
+        "flash_size": "4MB",
+        "compatible_boards": ["ESP32-WROOM-32", "ESP32-D0WD"],
+        "minimum_requirements": {
+          "flash": "4MB",
+          "ram": "320KB"
+        },
+        "gpio_requirements": [
+          "I2S RX slave: BCLK=GPIO26, WS=GPIO27, DIN=GPIO25 (nối từ SPK của S3)",
+          "UART2: RX=GPIO16, TX=GPIO17 (nối chéo với UART2 của S3)",
+          "GPIO2 - LED trạng thái (tuỳ chọn)",
+          "Chung mass GND bắt buộc"
+        ],
+        "power_requirements": "5V via USB, nối chung 3V3 giữa hai board",
+        "special_features": [
+          "A2DP Source + Bluedroid, Bluetooth Classic BR/EDR only",
+          "Resample 24kHz → SBC 16/32/44.1/48kHz, mono ưu tiên (tự thử mono/stereo)",
+          "CLI trên UART0 115200: help, status, scan, connect, disconnect, volume, mute, i2s, restart",
+          "Lưu peer Bluetooth trong NVS (xz_bridge), tự kết nối lại các lần boot sau",
+          "LED: sáng = streaming, 1Hz = đã kết nối, 2Hz = đang kết nối"
+        ]
+      }
     }
   ],
   "categories": [
-    "AI Xiaozhi"
+    "AI Xiaozhi",
+    "Bluetooth Bridge"
   ],
   "metadata": {
-    "version": "2.0.0",
-    "lastUpdated": "2026-09-27",
-    "description": "ESP32-S3 AI Xiaozhi firmware collection cho web flasher",
-    "author": "TienHuyIoT / VDLapTrinh"
+    "version": "2.1.0",
+    "lastUpdated": "2026-09-30",
+    "description": "ESP32 / ESP32-S3 AI Xiaozhi firmware collection cho web flasher",
+    "author": "VDLapTrinh"
   }
 };
 
