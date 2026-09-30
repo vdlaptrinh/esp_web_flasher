@@ -1496,6 +1496,43 @@ const EMBEDDED_FIRMWARE_DATABASE = {
       }
     },
     {
+      "id": "bread-compact-wifi-lcd-gc9a01_xiaozhi_ai",
+      "name": "bread-compact-wifi LCD tròn 1.28\" GC9A01 — AI Xiaozhi VN",
+      "filename": "bread-compact-wifi-lcd-gc9a01_xiaozhi_ai.bin",
+      "flashAddress": "0x00000",
+      "path": "local://samples/bread-compact-wifi-lcd-gc9a01_xiaozhi_ai.bin",
+      "description": "Firmware AI Xiaozhi tiếng Việt cho board bread-compact-wifi-lcd với màn hình tròn 1.28 inch GC9A01 (240x240), build từ xiaozhi-esp32; có sẵn 2 khe OTA 4MB + assets 8MB và MCP tool điều khiển đèn lamp",
+      "size": "9,217KB",
+      "version": "2026.09.30",
+      "category": "AI Xiaozhi",
+      "note": "Chỉ dành cho ESP32-S3 module, nạp ở địa chỉ 0x00000 (merged binary 16MB, flash dio 80m)",
+      "hardware_version": "ESP32-S3",
+      "hardware_info": {
+        "chip": "ESP32-S3",
+        "flash_size": "16MB",
+        "compatible_boards": ["bread-compact-wifi-lcd"],
+        "minimum_requirements": {
+          "flash": "16MB",
+          "ram": "512KB",
+          "psram": "8MB"
+        },
+        "gpio_requirements": [
+          "I2S MIC: WS=4, SCK=5, DIN=6",
+          "I2S SPK: DOUT=7, BCLK=15, LRCK=16 — cấp cho ESP32 A2DP bridge",
+          "UART2: GPIO9 / GPIO17 — trống, dùng nối sang board bridge",
+          "LCD GC9A01 SPI: MOSI=47, CLK=21, DC=40, RST=45, CS=41, backlight=42",
+          "GPIO48 - LED, GPIO18 - lamp (MCP tool), GPIO0 - boot button"
+        ],
+        "power_requirements": "5V via USB, nối chung GND với board bridge",
+        "special_features": [
+          "Màn hình tròn 1.28 inch GC9A01 240x240 (mirror X, BGR, SPI mode 0)",
+          "2 khe OTA 4MB + partition assets 8MB",
+          "MCP tool điều khiển lamp qua GPIO18",
+          "Wake word: Sophia"
+        ]
+      }
+    },
+    {
       "id": "freenove-esp32s3-display-2.8-lcd_xiaozhi_ai",
       "name": "Freenove ESP32-S3 Display 2.8 LCD — AI Xiaozhi VN",
       "filename": "freenove-esp32s3-display-2.8-lcd_xiaozhi_ai.bin",
@@ -1540,8 +1577,8 @@ const EMBEDDED_FIRMWARE_DATABASE = {
       "flashAddress": "0x00000",
       "path": "local://samples/xiaozhi-bt-bridge-esp32-a2dp.bin",
       "description": "Cầu nối âm thanh từ board XiaoZhi (ESP32-S3) sang loa Bluetooth qua ESP32 WROOM-32 trung gian (A2DP Source + Bluedroid). Nhận I2S 24kHz mono, resample, encode SBC và stream qua Bluetooth Classic",
-      "size": "832KB",
-      "version": "1.0.0",
+      "size": "836KB",
+      "version": "1.0.1",
       "category": "Bluetooth Bridge",
       "note": "Chỉ chạy trên ESP32 WROOM-32 / D0WD (bắt buộc Bluetooth Classic — S3/C3/C6/P4 không làm được A2DP Source). Nạp ở địa chỉ 0x00000 (merged binary)",
       "hardware_version": "ESP32",
