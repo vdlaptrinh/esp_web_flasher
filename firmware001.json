@@ -114,6 +114,86 @@
       }
     },
     {
+      "id": "esp32-s3-1.28-cam-gc0308-EN-V1.1",
+      "name": "Spotpear ESP32-S3 1.28\" Cam GC0308 0.3MP (EN) V1.1",
+      "filename": "esp32-s3-1.28-cam-gc0308-EN-V1.1.bin",
+      "flashAddress": "0x00000",
+      "path": "local://samples/esp32-s3-1.28-cam-gc0308-EN-V1.1.bin",
+      "description": "Firmware gốc chính hãng Spotpear cho board ESP32-S3 AI Camera 1.28 inch LCD, camera GC0308 0.3MP, giao diện & trợ lý tiếng Anh; nhận diện vật thể qua camera, dual MIC, loa, khe thẻ SD (nhạc + video mjpeg), đồng hồ Pomodoro, wallpaper thời tiết",
+      "size": "16,384KB",
+      "version": "1.1",
+      "category": "AI Xiaozhi",
+      "note": "Ảnh flash đầy đủ 16MB — sẽ ghi đè toàn bộ flash (kể cả WiFi/NVS đã cấu hình). Chỉ dùng cho board Spotpear ESP32-S3 1.28inch AI Camera GC0308. Nạp ở 0x00000",
+      "hardware_version": "ESP32-S3",
+      "hardware_info": {
+        "chip": "ESP32-S3",
+        "flash_size": "16MB",
+        "compatible_boards": ["Spotpear ESP32-S3-1.28inch-AI-legs-Bat-0.3MP", "Spotpear ESP32-S3-1.28-CAM-LOW"],
+        "minimum_requirements": {
+          "flash": "16MB",
+          "ram": "512KB",
+          "psram": "8MB"
+        },
+        "gpio_requirements": [
+          "LCD tròn GC9A01A 1.28 inch (SPI)",
+          "Camera GC0308 0.3MP (YUV422, DVP)",
+          "Dual MIC (I2S)",
+          "Speaker (I2S)",
+          "Khe thẻ SD cho nhạc/video",
+          "Nút BOOT + nút nguồn PWR"
+        ],
+        "power_requirements": "5V via Type-C (có pin)",
+        "special_features": [
+          "Partition: 2 khe OTA 4MB (ota_0/ota_1) + assets 6MB + wallpaper 2MB",
+          "Nhận diện vật thể: nói \"mở camera, bạn thấy gì\" / \"mở camera chụp ảnh\"",
+          "Nút BOOT: 1 nhấn = đánh thức/ngắt lời, 2 nhấn = đổi wallpaper, giữ 3s = phát video từ SD",
+          "SD video mjpeg + mp3 (thư mục media/), nhạc mp3 (thư mục music/, tên bài - ca sĩ)",
+          "Wake word: \"Hi ESP\" (cần voiceprint) hoặc \"ni hao xiao zhi\"",
+          "Đổi wallpaper & thông tin thành phố qua web server trên thiết bị"
+        ]
+      }
+    },
+    {
+      "id": "esp32-s3-1.28-cam-ov5640-EN-V1.1",
+      "name": "Spotpear ESP32-S3 1.28\" Cam OV5640 5MP (EN) V1.1",
+      "filename": "esp32-s3-1.28-cam-ov5640-EN-V1.1.bin",
+      "flashAddress": "0x00000",
+      "path": "local://samples/esp32-s3-1.28-cam-ov5640-EN-V1.1.bin",
+      "description": "Firmware gốc chính hãng Spotpear cho board ESP32-S3 AI Camera 1.28 inch LCD, camera OV5640 5MP, giao diện & trợ lý tiếng Anh; nhận diện vật thể qua camera, dual MIC, loa, khe thẻ SD (nhạc + video mjpeg), đồng hồ Pomodoro, wallpaper thời tiết",
+      "size": "16,384KB",
+      "version": "1.1",
+      "category": "AI Xiaozhi",
+      "note": "Ảnh flash đầy đủ 16MB — sẽ ghi đè toàn bộ flash (kể cả WiFi/NVS đã cấu hình). Chỉ dùng cho board Spotpear ESP32-S3 1.28inch AI Camera OV5640. Nạp ở 0x00000",
+      "hardware_version": "ESP32-S3",
+      "hardware_info": {
+        "chip": "ESP32-S3",
+        "flash_size": "16MB",
+        "compatible_boards": ["Spotpear ESP32-S3-1.28inch-AI-legs-Bat-5MP-CAM", "Spotpear ESP32-S3-1.28-CAM"],
+        "minimum_requirements": {
+          "flash": "16MB",
+          "ram": "512KB",
+          "psram": "8MB"
+        },
+        "gpio_requirements": [
+          "LCD tròn GC9A01A 1.28 inch (SPI)",
+          "Camera OV5640 5MP (YUV422, DVP)",
+          "Dual MIC (I2S)",
+          "Speaker (I2S)",
+          "Khe thẻ SD cho nhạc/video",
+          "Nút BOOT + nút nguồn PWR"
+        ],
+        "power_requirements": "5V via Type-C (có pin)",
+        "special_features": [
+          "Partition: 2 khe OTA 4MB (ota_0/ota_1) + assets 6MB + wallpaper 2MB",
+          "Nhận diện vật thể: nói \"mở camera, bạn thấy gì\" / \"mở camera chụp ảnh\"",
+          "Nút BOOT: 1 nhấn = đánh thức/ngắt lời, 2 nhấn = đổi wallpaper, giữ 3s = phát video từ SD",
+          "SD video mjpeg + mp3 (thư mục media/), nhạc mp3 (thư mục music/, tên bài - ca sĩ)",
+          "Wake word: \"Hi ESP\" (cần voiceprint) hoặc \"ni hao xiao zhi\"",
+          "Đổi wallpaper & thông tin thành phố qua web server trên thiết bị"
+        ]
+      }
+    },
+    {
       "id": "xiaozhi-bt-bridge-esp32-a2dp",
       "name": "XiaoZhi → ESP32 A2DP Bluetooth Bridge",
       "filename": "xiaozhi-bt-bridge-esp32-a2dp.bin",
