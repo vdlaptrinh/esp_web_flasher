@@ -39,6 +39,48 @@
       }
     },
     {
+      "id": "bread-compact-wifi-128x64-sd-english_xiaozhi_ai",
+      "name": "bread-compact-wifi 128x64 — SD Music + English VN",
+      "filename": "bread-compact-wifi-128x64-sd-english_xiaozhi_ai.bin",
+      "flashAddress": "0x00000",
+      "path": "local://samples/bread-compact-wifi-128x64-sd-english_xiaozhi_ai.bin",
+      "description": "Firmware AI Xiaozhi tiếng Việt cho board bread-compact-wifi (OLED SSD1306 128x64), build từ xiaozhi-esp32; có thẻ nhớ microSD phát nhạc, luyện nghe tiếng Anh, nhạc online qua music server URL, tool tin tức và ngày này năm xưa",
+      "size": "8,579KB",
+      "version": "2026.10.13",
+      "category": "AI Xiaozhi",
+      "note": "Chỉ dành cho ESP32-S3 module, nạp ở địa chỉ 0x00000 (merged binary 16MB, flash dio 80m)",
+      "hardware_version": "ESP32-S3",
+      "hardware_info": {
+        "chip": "ESP32-S3",
+        "flash_size": "16MB",
+        "compatible_boards": ["bread-compact-wifi", "bread-compact-wifi-128x64"],
+        "minimum_requirements": {
+          "flash": "16MB",
+          "ram": "512KB",
+          "psram": "8MB"
+        },
+        "gpio_requirements": [
+          "OLED SSD1306 128x64 I2C: SDA=41, SCL=42",
+          "microSD SPI: MISO=12, MOSI=13, CLK=14, CS=11 (SPI2, 10MHz, mount /sdcard)",
+          "I2S MIC: WS=4, SCK=5, DIN=6",
+          "I2S SPK: DOUT=7, BCLK=15, LRCK=16",
+          "GPIO18 - lamp (MCP tool), GPIO48 - LED",
+          "Nút: BOOT=0, touch=47, VOL+ =40, VOL- =39",
+          "Pin đo pin LiPo: GPIO9 (ADC1_CH8, chia áp 2x100k)"
+        ],
+        "power_requirements": "5V via USB, pin LiPo 1S (đo mức pin qua GPIO9)",
+        "special_features": [
+          "Phát nhạc từ thẻ nhớ microSD (mount /sdcard), có VU meter trên OLED",
+          "Luyện nghe tiếng Anh lưu trên thẻ nhớ (English tool)",
+          "Nhạc online qua music server URL (mặc định http://192.168.1.22:5005)",
+          "Tool tin tức, ngày này năm xưa, lịch công tác",
+          "Nút BOOT: 1 nhấn chat, 2 nhấn dừng phát, giữ = tạm dừng/tiếp tục",
+          "VOL+/- 2 nhấn = chuyển bài trước/sau; giữ = max/mute",
+          "Wake word: Sophia"
+        ]
+      }
+    },
+    {
       "id": "bread-compact-wifi-lcd-gc9a01_xiaozhi_ai",
       "name": "bread-compact-wifi LCD tròn 1.28\" GC9A01 — AI Xiaozhi VN",
       "filename": "bread-compact-wifi-lcd-gc9a01_xiaozhi_ai.bin",
