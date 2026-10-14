@@ -1,6 +1,6 @@
 {
   "board": "sp-esp32-s3-1.28-cam-low",
-  "version": "2.5.0.1",
-  "url": "https://vdlaptrinh.github.io/esp_web_flasher/firmware/xiaozhi-2.5.0.1.bin",
+  "version": "2.5.0.2",
+  "url": "https://vdlaptrinh.github.io/esp_web_flasher/firmware/xiaozhi-2.5.0.2.bin",
   "enabled": true
 }
