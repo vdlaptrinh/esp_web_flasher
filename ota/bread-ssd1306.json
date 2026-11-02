@@ -1,0 +1,7 @@
+{
+  "board": "bread-compact-wifi",
+  "variant": "bread-compact-wifi-ssd1306",
+  "version": "2.5.0.13",
+  "url": "https://vdlaptrinh.github.io/esp_web_flasher/firmware/bread-ssd1306-2.5.0.13.bin",
+  "enabled": false
+}

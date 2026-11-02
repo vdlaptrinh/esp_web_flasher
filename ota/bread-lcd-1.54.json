@@ -1,0 +1,7 @@
+{
+  "board": "bread-compact-wifi-lcd",
+  "variant": "bread-compact-wifi-lcd-1.54-st7789",
+  "version": "2.5.0.13",
+  "url": "https://vdlaptrinh.github.io/esp_web_flasher/firmware/bread-lcd-1.54-2.5.0.13.bin",
+  "enabled": false
+}

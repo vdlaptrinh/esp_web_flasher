@@ -1,0 +1,7 @@
+{
+  "board": "freenove-esp32s3-display-2.8-lcd",
+  "variant": "freenove-esp32s3-display-2.8-lcd",
+  "version": "2.5.0.13",
+  "url": "https://vdlaptrinh.github.io/esp_web_flasher/firmware/freenove-2.5.0.13.bin",
+  "enabled": false
+}
