@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Sofia — Hướng dẫn Bread Compact Wi-Fi LCD</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1220;
+      --panel: #121c2d;
+      --panel2: #172438;
+      --ink: #e7eef8;
+      --muted: #a9b8cc;
+      --line: #2b3d55;
+      --accent: #70d5c0;
+      --blue: #8cc8ff;
+      --warn: #ffd38a;
+      --code: #0a1020;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at top, #16243b 0, var(--bg) 650px);
+      color: var(--ink);
+      font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main { max-width: 1100px; margin: auto; padding: 36px 22px 72px; }
+    header { padding: 26px 0 18px; }
+    h1 { margin: 0 0 8px; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.12; }
+    h2 { margin-top: 0; font-size: 1.55rem; }
+    h3 { margin: 1.5rem 0 .4rem; font-size: 1.12rem; color: var(--blue); }
+    p { margin: .55rem 0 1rem; }
+    a { color: var(--accent); }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { color: #bde9ff; }
+    pre {
+      overflow: auto; padding: 16px; border: 1px solid var(--line);
+      border-radius: 12px; background: var(--code); color: #d6e6f5;
+    }
+    .lede { max-width: 760px; color: var(--muted); font-size: 1.08rem; }
+    nav { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0 32px; }
+    nav a, .tag {
+      display: inline-block; padding: 7px 12px; border: 1px solid var(--line);
+      border-radius: 999px; background: #111d2f; text-decoration: none;
+    }
+    section {
+      margin: 22px 0; padding: 24px; border: 1px solid var(--line);
+      border-radius: 18px; background: color-mix(in srgb, var(--panel) 94%, transparent);
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .card { padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel2); }
+    .card h3 { margin-top: 0; }
+    .note, .warning { padding: 13px 16px; border-left: 4px solid var(--accent); border-radius: 8px; background: #102c31; }
+    .warning { border-left-color: var(--warn); background: #302617; }
+    .small { color: var(--muted); font-size: .92rem; }
+    table { width: 100%; border-collapse: collapse; margin: 14px 0 20px; font-size: .95rem; }
+    th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { color: var(--accent); background: #142238; }
+    tr:last-child td { border-bottom: 0; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+    .steps { counter-reset: step; padding: 0; list-style: none; }
+    .steps li { counter-increment: step; position: relative; margin: 14px 0; padding: 2px 0 2px 48px; }
+    .steps li::before {
+      content: counter(step); position: absolute; left: 0; top: 0; width: 32px; height: 32px;
+      display: grid; place-items: center; border-radius: 50%; background: #17394a; color: var(--accent); font-weight: 700;
+    }
+    .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; align-items: stretch; margin: 18px 0; }
+    .flow div { padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel2); }
+    .flow b { display: block; color: var(--accent); }
+    footer { margin-top: 30px; color: var(--muted); font-size: .9rem; }
+    .hero-img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line); margin: 10px 0 4px; }
+    .cta { display: inline-block; margin: 8px 10px 8px 0; padding: 10px 18px; border-radius: 999px; background: #17394a; color: var(--accent); text-decoration: none; border: 1px solid var(--line); font-weight: 600; }
+    .cta:hover { background: #1d4a5e; }
+    .donate { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+    .donate img { width: 200px; max-width: 100%; border-radius: 12px; border: 1px solid var(--line); background: #fff; padding: 6px; }
+    @media (max-width: 620px) { main { padding: 20px 14px 48px; } section { padding: 18px; } }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <span class="tag">Sofia · ESP32-S3 · ST7789 · microSD</span>
+    <h1>Bread Compact Wi-Fi LCD — Sofia</h1>
+    <p class="lede">Hướng dẫn trợ lý Sofia: sơ đồ GPIO đầy đủ, cách đấu nối phần cứng và danh sách tool điều khiển thiết bị, nhạc và cảm biến.</p>
+  </header>
+
+  <section id="overview">
+    <h2>Tổng quan thiết bị</h2>
+    <img class="hero-img" src="https://donghuongbacninh.com/wp-content/uploads/2026/10/bread-compact-wifi-lcd-tong-quan.png" alt="Tổng quan board Bread Compact Wi-Fi LCD: ESP32-S3, màn hình ST7789, khe microSD, loa, nút nhấn" loading="lazy">
+    <p class="small">Board ESP32-S3 · màn hình LCD ST7789 · khe microSD · loa · cụm nút BOOT / VOL+ / VOL−.</p>
+    <h3>Các thành phần phần cứng</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>STT</th><th>Thành phần</th><th>Chức năng</th><th>Chân / giao tiếp</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Công tắc nguồn</td><td>Bật/tắt nguồn pin cho toàn board</td><td>—</td></tr>
+          <tr><td>2</td><td>Màn hình TFT ST7789 320×240</td><td>Hiển thị giao diện, hội thoại, phụ đề</td><td>SPI3_HOST: MOSI 8, SCLK 10, MISO 2, CS 45, DC 17, RST 38, BL 18</td></tr>
+          <tr><td>3</td><td>Nút nhấn: Boot, Vol+, Vol−</td><td>Hội thoại, âm lượng và điều hướng menu</td><td>BOOT GPIO0, VOL+ GPIO40, VOL− GPIO39 (active-low)</td></tr>
+          <tr><td>4</td><td>Thẻ nhớ microSD</td><td>Lưu nhạc và dữ liệu người dùng</td><td>SPI2_HOST: MISO 12, MOSI 13, CLK 14, CS 11</td></tr>
+          <tr><td>5</td><td>Loa 4/8 Ω 2/3 W</td><td>Phát âm thanh trợ lý và bài học</td><td>Nối với ngõ ra MAX98357A</td></tr>
+          <tr><td>6</td><td>ESP32-S3 N16R8</td><td>Vi điều khiển trung tâm, Wi-Fi, 16 MB flash / 8 MB PSRAM</td><td>—</td></tr>
+          <tr><td>7</td><td>MAX98357A</td><td>Ampli I2S class-D cho loa</td><td>DIN 7, BCLK 15, LRCK/WS 16</td></tr>
+          <tr><td>8</td><td>Mic INMP441</td><td>Thu âm giọng nói người dùng</td><td>WS 4, SCK/BCLK 5, SD 6</td></tr>
+          <tr><td>9</td><td>Mạch sạc pin Type-C TP4056</td><td>Sạc pin LiPo qua USB-C, đo mức pin</td><td>Sạc qua Type-C; cầu chia áp pin về GPIO9 (ADC1_CH8)</td></tr>
+          <tr><td>10</td><td>Cảm biến DHT11</td><td>Đọc nhiệt độ và độ ẩm định kỳ</td><td>DATA GPIO47, điện trở kéo lên 3.3 V nếu module chưa tích hợp</td></tr>
+          <tr><td>11</td><td>LED ngoài xanh / đỏ</td><td>Sofia bật, tắt hoặc đổi trạng thái LED bằng tool</td><td>Xanh GPIO41, đỏ GPIO42 (theo cấu hình hiện tại)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <nav aria-label="Mục lục">
+    <a href="#overview">Tổng quan</a>
+    <a href="#firmware">Nạp firmware</a>
+    <a href="#gpio">Sơ đồ GPIO</a>
+    <a href="#wiring">Đấu nối phần cứng</a>
+    <a href="#tools">Danh sách tool</a>
+    <a href="#assistant-role">Cấu hình Role Sofia</a>
+    <a href="#support">Liên hệ &amp; ủng hộ</a>
+  </nav>
+
+  <section id="firmware">
+    <h2>Nạp firmware</h2>
+    <p>Dùng trình nạp firmware trên web (không cần cài đặt) để flash trực tiếp qua trình duyệt:</p>
+    <p><a class="cta" href="https://vdlaptrinh.github.io/esp_web_flasher/" target="_blank" rel="noopener">Mở trang nạp firmware</a></p>
+    <p class="small">Kết nối board qua cáp USB Type-C, chọn đúng cổng COM và làm theo hướng dẫn trên trang. Nếu không nhận cổng, giữ nút BOOT khi cắm cáp để vào chế độ nạp.</p>
+  </section>
+
+  <section id="gpio">
+    <h2>1. Sơ đồ GPIO</h2>
+    <p>Đây là sơ đồ tín hiệu theo <code>config.h</code> của board <code>bread-compact-wifi-lcd</code>. GPIO là chân tín hiệu trên ESP32-S3; cấp nguồn cho module theo thông số của module và nối chung GND.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Khối</th><th>Tín hiệu module</th><th>GPIO / cấu hình</th><th>Ghi chú</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="3">Micro I2S</td><td>WS / LRCLK</td><td>GPIO4</td><td>Chọn kênh trái/phải theo mic.</td></tr>
+          <tr><td>SCK / BCLK</td><td>GPIO5</td><td>Clock dữ liệu mic.</td></tr>
+          <tr><td>SD / DOUT của mic</td><td>GPIO6</td><td>Dữ liệu mic đi vào ESP32.</td></tr>
+          <tr><td rowspan="3">Loa / ampli I2S</td><td>BCLK</td><td>GPIO15</td><td>Clock dữ liệu phát.</td></tr>
+          <tr><td>LRCK / WS</td><td>GPIO16</td><td>Clock trái/phải.</td></tr>
+          <tr><td>DIN / DATA</td><td>GPIO7</td><td>Dữ liệu từ ESP32 tới ampli/DAC.</td></tr>
+          <tr><td rowspan="7">LCD SPI, ST7789</td><td>MOSI / SDA</td><td>GPIO8</td><td>Bus SPI3_HOST.</td></tr>
+          <tr><td>SCLK / SCL</td><td>GPIO10</td><td>Clock LCD.</td></tr>
+          <tr><td>MISO</td><td>GPIO2</td><td>Bus SPI3_HOST; LCD không sử dụng đường đọc này.</td></tr>
+          <tr><td>CS</td><td>GPIO45</td><td>Chip select.</td></tr>
+          <tr><td>DC</td><td>GPIO17</td><td>Data / command.</td></tr>
+          <tr><td>RST</td><td>GPIO38</td><td>Reset LCD.</td></tr>
+          <tr><td>BL / LED</td><td>GPIO18</td><td>Điều khiển đèn nền.</td></tr>
+          <tr><td rowspan="5">Touch XPT2046</td><td>CLK / T_CLK</td><td>GPIO10</td><td rowspan="3">Dùng chung bus SPI3 với LCD.</td></tr>
+          <tr><td>DIN / T_DIN</td><td>GPIO8</td></tr>
+          <tr><td>DOUT / T_DO</td><td>GPIO2</td></tr>
+          <tr><td>CS / T_CS</td><td>GPIO1</td><td>CS riêng cho touch.</td></tr>
+          <tr><td>IRQ / T_IRQ</td><td>Không dùng</td><td>Driver đọc theo polling.</td></tr>
+          <tr><td rowspan="6">microSD SPI</td><td>MISO / DO</td><td>GPIO12</td><td rowspan="4">Bus SPI2_HOST riêng, tối đa cấu hình 10 MHz.</td></tr>
+          <tr><td>MOSI / DI</td><td>GPIO13</td></tr>
+          <tr><td>SCLK</td><td>GPIO14</td></tr>
+          <tr><td>CS</td><td>GPIO11</td></tr>
+          <tr><td>VCC</td><td>3.3 V</td><td>Dùng module tương thích 3.3 V.</td></tr>
+          <tr><td>GND</td><td>GND</td><td>Nối chung mass với ESP32.</td></tr>
+          <tr><td rowspan="3">Nút nhấn</td><td>BOOT</td><td>GPIO0</td><td>Nút active-low, nhấn nối tín hiệu xuống GND.</td></tr>
+          <tr><td>VOL+</td><td>GPIO40</td><td>Nút active-low.</td></tr>
+          <tr><td>VOL−</td><td>GPIO39</td><td>Nút active-low.</td></tr>
+          <tr><td rowspan="2">Pin LiPo 1S</td><td>Điểm giữa cầu chia áp</td><td>GPIO9 / ADC1_CH8</td><td>Hai điện trở 100 kΩ mắc nối tiếp.</td></tr>
+          <tr><td>Chân nhận biết sạc</td><td>Không có</td><td>Firmware không đọc trạng thái đang sạc.</td></tr>
+          <tr><td>LED onboard</td><td>LED</td><td>GPIO48</td><td>LED trạng thái.</td></tr>
+          <tr><td rowspan="2">LED ngoài</td><td>LED xanh</td><td>GPIO41</td><td>GPIO → điện trở 220–1 kΩ → anode LED; cathode nối GND.</td></tr>
+          <tr><td>LED đỏ</td><td>GPIO42</td><td>GPIO → điện trở 220–1 kΩ → anode LED; cathode nối GND.</td></tr>
+          <tr><td>DHT11</td><td>DATA</td><td>GPIO47</td><td>Task nền lấy mẫu định kỳ; tool trả về mẫu hợp lệ gần nhất.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small">Firmware dùng I2S simplex: mic chạy ở 16 kHz, loa ở 24 kHz. Thẻ microSD dùng SPI2_HOST; LCD và touch dùng SPI3_HOST. GPIO41/42 đang chọn cho LED ngoài trong cấu hình hiện tại; kiểm tra chân header và điện trở hạn dòng trước khi đấu. Nếu dùng JTAG ngoài, cần chọn chân LED khác vì GPIO41/42 có chức năng JTAG.</p>
+  </section>
+
+  <section id="wiring">
+    <h2>2. Đấu nối phần cứng</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Micro I2S</h3>
+        <p>Nối <code>WS</code> → GPIO4, <code>SCK/BCLK</code> → GPIO5, <code>SD</code> → GPIO6. Nối VDD và GND theo điện áp yêu cầu của module mic; nối chung GND với ESP32.</p>
+      </article>
+      <article class="card">
+        <h3>Loa</h3>
+        <p>GPIO7/15/16 là dữ liệu và clock I2S đi tới ampli hoặc DAC I2S. Nối <code>DIN</code> ← GPIO7, <code>BCLK</code> ← GPIO15, <code>LRCK/WS</code> ← GPIO16. Không nối loa thụ động trực tiếp vào GPIO ESP32; dùng ampli phù hợp.</p>
+      </article>
+      <article class="card">
+        <h3>LCD ST7789 320×240 và touch</h3>
+        <p>LCD: MOSI 8, SCLK 10, CS 45, DC 17, RST 38, BL 18. Touch XPT2046 dùng chung CLK 10, DIN 8, DOUT 2 và CS riêng GPIO1; T_IRQ không dùng. Cả LCD và touch chạy SPI3_HOST.</p>
+      </article>
+      <article class="card">
+        <h3>Thẻ microSD</h3>
+        <p>Nối MISO 12, MOSI 13, CLK 14, CS 11, nguồn và GND. Thẻ được mount tại <code>/sdcard</code> trên SPI2_HOST; LCD và touch dùng SPI3_HOST.</p>
+      </article>
+      <article class="card">
+        <h3>Cảm biến DHT11</h3>
+        <p>Nối DATA → GPIO47, VCC → 3.3 V và GND → GND. Nếu module không có điện trở kéo lên, thêm điện trở 4.7–10 kΩ giữa DATA và 3.3 V. Firmware đọc cảm biến trong task nền theo chu kỳ; MCP trả về mẫu hợp lệ gần nhất.</p>
+      </article>
+      <article class="card">
+        <h3>Hai LED ngoài</h3>
+        <p>LED xanh: GPIO41 → điện trở 220–1 kΩ → anode; cathode → GND. LED đỏ: GPIO42 đấu tương tự. Chọn chân GPIO khác trong menuconfig nếu 41/42 không được đưa ra header board của bạn.</p>
+      </article>
+    </div>
+    <div class="warning">
+      <strong>Lưu ý pull-up SD:</strong> log kiểm tra phần cứng được ghi trong README của board cho thấy module microSD thử nghiệm không có pull-up trên các đường SPI. Hãy kiểm tra module của bạn; nếu thiếu, bổ sung pull-up 10 kΩ lên 3.3 V theo hướng dẫn phần cứng của module. Không cấp 5 V vào GPIO ESP32-S3.
+    </div>
+
+    <h3>Cầu chia áp pin</h3>
+    <pre>BAT+ (LiPo 1S) ── 100 kΩ ──┬── GPIO9 (ADC1_CH8)
+                             │
+                           100 kΩ
+                             │
+GND ─────────────────────────┴── GND ESP32</pre>
+    <p>Chỉ đưa điểm giữa cầu chia áp vào GPIO9; không nối trực tiếp BAT+ vào GPIO. Với hai điện trở bằng nhau, ADC nhận xấp xỉ một nửa điện áp pin. Mạch không có chân báo sạc. Phần trăm pin trong firmware là ước lượng và ngưỡng ADC cần hiệu chuẩn theo cell, điện trở và board thực tế.</p>
+  </section>
+
+  <section id="tools">
+    <h2>3. Danh sách tool của Sofia</h2>
+    <p>Sofia là tên trợ lý trong tài liệu này. Tool chỉ xuất hiện khi feature tương ứng được bật trong cấu hình firmware; các tool dùng thẻ cần microSD mount thành công.</p>
+    <div class="grid">
+      <article class="card">
+        <h3>Cảm biến và LED</h3>
+        <ul>
+          <li><code>self.sensor.dht11</code> — đọc nhiệt độ, độ ẩm từ mẫu nền gần nhất; báo lỗi nếu chưa có mẫu hợp lệ.</li>
+          <li><code>self.led.control</code> — bật, tắt hoặc đảo trạng thái LED xanh GPIO41 / LED đỏ GPIO42.</li>
+          <li><code>self.led.get_status</code> — đọc trạng thái hai LED.</li>
+        </ul>
+        <p class="small">DHT11 và LED có thể bật/tắt riêng trong menuconfig. Hai LED mặc định của sdkconfig hiện tại là GPIO41 và GPIO42.</p>
+      </article>
+      <article class="card">
+        <h3>Nhạc trên thẻ và nhạc trực tuyến</h3>
+        <ul>
+          <li><code>self.music.play_from_sd</code> — phát bài hoặc playlist trong <code>/sdcard/music</code>.</li>
+          <li><code>self.music.sd_control</code> — chuyển bài, lùi bài, tạm dừng, phát tiếp hoặc dừng.</li>
+          <li><code>self.music.play_song</code> — tìm và phát nhạc trực tuyến (nếu bật online music tool).</li>
+          <li><code>self.music.set_display_mode</code> — chọn hiển thị lời bài hát hoặc phổ nhạc (nếu bật online music tool).</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="assistant-role">
+    <h2>4. Tắt tool nhạc và cấu hình Role Sofia</h2>
+    <h3>Tắt các music tool không dùng</h3>
+    <p>Nếu muốn Sofia chỉ phát bài hát trực tuyến qua <code>self.music.play_song</code>, hãy tắt các tool nhạc không cần thiết trong cấu hình firmware, sau đó build và nạp lại thiết bị:</p>
+    <ol class="steps">
+      <li>Mở cấu hình dự án bằng <code>idf.py menuconfig</code>.</li>
+      <li>Tìm phần cấu hình MCP/music tools và tắt <strong>SD music tool</strong> (<code>self.music.play_from_sd</code>, <code>self.music.sd_control</code>) cùng các chức năng nhạc trực tuyến khác nếu không muốn trợ lý gọi chúng.</li>
+      <li>Build và nạp lại firmware. Giữ <code>self.music.play_song</code> chỉ khi vẫn muốn Sofia phát nhạc trực tuyến.</li>
+      <li>Trong Role bên dưới, yêu cầu Sofia chỉ gọi <code>self.music.play_song</code> cho yêu cầu âm nhạc và không dùng <code>search_music</code>.</li>
+    </ol>
+    <p class="small">Tắt tool trong firmware giúp tool đó không được đăng ký với MCP. Role chỉ hướng dẫn hành vi của trợ lý; nó không thay thế việc tắt tool ở cấu hình firmware.</p>
+
+    <h3>Thêm Role trên xiaozhi.me</h3>
+    <p>Mở trang <a href="https://xiaozhi.me/" target="_blank" rel="noopener">xiaozhi.me</a>, vào phần cấu hình Role/System Prompt của thiết bị và thêm đoạn sau:</p>
+    <pre>Khi nhận được yêu cầu liên quan đến âm nhạc, chỉ sử dụng công cụ MCP self.music.play_song và không sử dụng search_music.
+
+Khi không nghe rõ hoặc chưa hiểu ý người đối thoại, hoặc khi người dùng mời subscribe, không nhắc đến các kênh YouTube hay kênh “La La school”. Hãy lịch sự, tự nhiên đề nghị người dùng nhắc lại. Có thể nói: “Xin lỗi, bạn có thể nói lại giúp mình được không?” hoặc “Mình chưa nghe rõ ý của bạn.”</pre>
+    <p class="small">Sau khi lưu Role, kiểm tra lại cấu hình và kết nối thiết bị để Sofia nhận hướng dẫn mới.</p>
+  </section>
+
+  <section id="support">
+    <h2>Liên hệ &amp; ủng hộ</h2>
+    <p>Góp ý, báo lỗi hoặc cần hỗ trợ kỹ thuật, liên hệ qua Facebook:</p>
+    <p><a class="cta" href="https://www.facebook.com/davidliu2207" target="_blank" rel="noopener">Liên hệ Facebook</a></p>
+    <h3>Ủng hộ tác giả</h3>
+    <p class="small">Nếu tài liệu hữu ích, bạn có thể ủng hộ để duy trì các dự án tiếp theo. Quét mã QR bên dưới:</p>
+    <div class="donate">
+      <img src="https://donghuongbacninh.com/wp-content/uploads/2026/10/qr-donate.png" alt="Mã QR ủng hộ tác giả" loading="lazy">
+    </div>
+  </section>
+
+  <footer>
+    <p>Tài liệu được đối chiếu với <code>main/boards/bread-compact-wifi-lcd/config.h</code> và <code>compact_wifi_board_lcd.cc</code>. GPIO và hành vi có thể thay đổi nếu chọn biến thể board hoặc firmware khác.</p>
+  </footer>
+</main>
+</body>
+</html>
